@@ -1,0 +1,26 @@
+<!-- <h3 *ngIf="products; else noProduct">{{title}}</h3> -->
+<app-category></app-category>
+<div class="form-group">
+    <input 
+    class="form-control" 
+    id="productName" 
+    placeholder="Write! what you're looking for"
+    [(ngModel)] = "filterText"
+    >
+    <div *ngIf = "filterText" class="form-text"> You're searching for : <b>{{filterText}}</b></div>
+</div>
+<div class="row">
+    <ng-template #noProduct>
+        <div class="alert alert-primary" role="alert">
+            In this category, there is no product!
+        </div>
+    </ng-template>
+    <div *ngFor="let product of products | productFilter:filterText" class="card productbox" style="width: 16rem;">
+        <img [src]="product.imageUrl" class="card-img-top" alt="There is no image">
+        <div class="card-body">
+            <h5 class="card-title">{{product.name}} {{product.price | currency:'₺'}}</h5>
+            <p class="card-text">{{product.description}}</p>
+            <a (click)="addToBasket(product)" class="btn btn-primary">Add to Basket</a>
+        </div>
+    </div>
+</div>
